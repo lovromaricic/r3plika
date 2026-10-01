@@ -4,14 +4,23 @@ A Chrome extension that captures a whole page, the visible area, or any single e
 
 No server, no account, no analytics, no Figma plugin. Everything happens inside your browser.
 
-<!-- Screenshots: add the files below to docs/screenshots/ and uncomment.
-![The R3PLIKA popup](docs/screenshots/popup.png)
-![A captured page pasted into Figma, with editable layers](docs/screenshots/figma-layers.png)
-![Picking a single element](docs/screenshots/element-picker.png)
--->
-> _Screenshots coming soon._
+## Screenshots
 
-> **Name check:** "R3PLIKA" is a working title. It is close to an existing app called Replika, so check the name (trademarks, store listings) before publishing to the Chrome Web Store.
+<p align="center">
+  <img src="docs/popup.png" width="344" alt="The R3PLIKA popup with its three capture buttons">
+  &nbsp;&nbsp;
+  <img src="docs/result-card.png" width="344" alt="The on-page card after a capture: copied, paste into Figma">
+</p>
+
+**Options panel**
+
+<p align="center">
+  <img src="docs/popup-options.png" width="344" alt="The popup with the Options panel open">
+</p>
+
+**A test page next to its captured SVG**
+
+![A test page and the SVG captured from it, side by side](docs/before-after.png)
 
 ## Install
 
