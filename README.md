@@ -6,21 +6,13 @@ No server, no account, no analytics, no Figma plugin. Everything happens inside 
 
 ## Screenshots
 
-<p align="center">
-  <img src="docs/popup.png" width="344" alt="The R3PLIKA popup with its three capture buttons">
-  &nbsp;&nbsp;
-  <img src="docs/result-card.png" width="344" alt="The on-page card after a capture: copied, paste into Figma">
-</p>
-
-**Options panel**
-
-<p align="center">
-  <img src="docs/popup-options.png" width="344" alt="The popup with the Options panel open">
-</p>
-
-**A test page next to its captured SVG**
-
-![A test page and the SVG captured from it, side by side](docs/before-after.png)
+<table align="center">
+  <tr>
+    <td valign="top"><img src="docs/popup.png" width="270" alt="The R3PLIKA popup with its three capture buttons"></td>
+    <td valign="top"><img src="docs/popup-options.png" width="270" alt="The popup with the Options panel open"></td>
+    <td valign="top"><img src="docs/result-card.png" width="270" alt="The on-page card after a capture: copied, paste into Figma"></td>
+  </tr>
+</table>
 
 ## Install
 
