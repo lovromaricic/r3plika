@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+*.zip
+*.crx
+*.pem
+
+# test output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.log
+.env
+
+# local dev files (kept on disk, not published)
+tests/
+scripts/
+playwright.config.js
+package.json
+package-lock.json
+CLAUDE.md

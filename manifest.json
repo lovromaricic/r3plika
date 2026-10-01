@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "R3PLIKA",
+  "version": "1.0.0",
+  "description": "Replicate any page, viewport or element as a layered SVG and paste it straight into Figma.",
+  "minimum_chrome_version": "111",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "clipboardWrite",
+    "debugger"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "R3PLIKA: capture to Figma SVG",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "capture-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+F"
+      },
+      "description": "Capture the full page as SVG"
+    },
+    "capture-element": {
+      "suggested_key": {
+        "default": "Alt+Shift+E"
+      },
+      "description": "Pick an element and capture it as SVG"
+    }
+  }
+}
