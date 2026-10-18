@@ -52,33 +52,37 @@
     let host = null, card = null, ref = {}, countTok = 0;
     const CSS = `
       :host{all:initial}
-      .card{font:13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#15171c;background:#fff;border:1px solid #d9d9d2;border-radius:12px;box-shadow:0 10px 36px rgba(20,22,30,.22);padding:12px 14px 13px;width:300px;box-sizing:border-box}
+      .card{font:13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#1f2ac8;background:#f4efe3;border:1.5px solid #1f2ac8;border-radius:12px;box-shadow:4px 4px 0 #ffb21a;padding:12px 14px 13px;width:300px;box-sizing:border-box}
       .card.enter{animation:pop-in .42s cubic-bezier(.34,1.4,.64,1) both}
       .head{display:flex;align-items:flex-start;gap:10px}
       .icon{width:26px;height:26px;flex:none;position:relative;margin-top:1px}
       .icon svg{position:absolute;inset:0;width:100%;height:100%}
       .spin{animation:spin .8s linear infinite}
-      .card.done .spin,.card.err .icon{display:none}
-      .card:not(.done) .chk{display:none}
-      .chk circle{fill:#2f3bff;animation:pop-in .3s ease both}
-      .chk path{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;animation:draw .45s ease .1s both}
-      .title{font-weight:700;font-size:13.5px}
-      .sub{color:#5b606b;font-size:12px;margin-top:2px;min-height:17px;word-break:break-word}
-      .x{margin-left:auto;border:0;background:none;font-size:18px;line-height:1;color:#6a6f7a;cursor:pointer;padding:0 2px}
-      .bar{height:3px;background:#ebebe6;border-radius:2px;margin-top:10px;overflow:hidden}
-      .bar i{display:block;height:100%;width:0;background:#2f3bff;transition:width .35s ease}
-      .card:not(.done):not(.err) .bar i{background:linear-gradient(90deg,#2f3bff,#7f89ff,#2f3bff);background-size:200% 100%;animation:shim 1.1s linear infinite}
+      .card.done .spin,.card.err .spin{display:none}
+      .card:not(.done) .chk,.card:not(.err) .alert{display:none}
+      .chk .f{fill:#ffb21a;animation:pop-in .3s ease both}
+      .chk .o{fill:none;stroke:#1f2ac8;stroke-width:1.5}
+      .chk path{fill:none;stroke:#1f2ac8;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;animation:draw .45s ease .1s both}
+      .title{font-weight:800;font-size:13.5px}
+      .sub{color:#3a43b8;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;margin-top:3px;min-height:16px;word-break:break-word}
+      .x{margin-left:auto;border:0;background:none;font-size:18px;line-height:1;color:#1f2ac8;cursor:pointer;padding:0 2px}
+      .bar{height:8px;box-sizing:border-box;background:#f4efe3;border:1.5px solid #1f2ac8;border-radius:6px;margin-top:10px;overflow:hidden}
+      .bar i{display:block;height:100%;width:0;background:#ffb21a;transition:width .35s ease}
+      .card.err{background:#fff4f0;border-color:#b3261e;box-shadow:4px 4px 0 #b3261e;color:#8f1d15}
       .card.err .bar{display:none}
-      .card.err .title{color:#b3261e}
-      .row{display:none;gap:8px;margin-top:11px}
+      .card.err .title,.card.err .x{color:#8f1d15}
+      .card.err .sub{color:#8f1d15;font:11.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+      .row{display:none;gap:8px;margin-top:12px}
       .card.done .row{display:flex}
-      button.b{font:inherit;font-weight:700;font-size:12.5px;border:1px solid #cfcfc7;background:#fff;border-radius:8px;padding:6px 11px;cursor:pointer;color:inherit}
-      button.b.p{background:#2f3bff;border-color:#2f3bff;color:#fff}
-      button:focus-visible{outline:2px solid #2f3bff;outline-offset:2px}
-      .warn{margin-top:8px;font-size:11.5px;color:#7a5b00}
+      button.b{font:inherit;font-weight:700;font-size:12.5px;height:34px;border:1.5px solid #1f2ac8;background:transparent;border-radius:17px;padding:0 14px;cursor:pointer;color:#1f2ac8;transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+      button.b.p{background:#1f2ac8;color:#f4efe3}
+      button.b:hover,button.b:focus-visible{transform:translate(-2px,-2px);box-shadow:2px 2px 0 #ffb21a}
+      button.b:active{transform:none;box-shadow:none}
+      button:focus{outline:none}
+      .warn{margin-top:10px;padding:7px 10px;border:1.5px solid #1f2ac8;border-radius:10px;font-size:11.5px;line-height:1.35;color:#1f2ac8}
+      .warn:empty{display:none}
       @keyframes pop-in{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
       @keyframes spin{to{transform:rotate(360deg)}}
-      @keyframes shim{to{background-position:-200% 0}}
       @keyframes draw{from{stroke-dashoffset:22}to{stroke-dashoffset:0}}
       @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
     `;
@@ -93,8 +97,9 @@
         <div class="card enter">
           <div class="head">
             <div class="icon">
-              <svg class="spin" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10" fill="none" stroke="#e4e6f2" stroke-width="3"/><path d="M13 3a10 10 0 0 1 10 10" fill="none" stroke="#2f3bff" stroke-width="3" stroke-linecap="round"/></svg>
-              <svg class="chk" viewBox="0 0 26 26"><circle cx="13" cy="13" r="12"/><path d="M7.5 13.5l3.7 3.7 7.3-8.2"/></svg>
+              <svg class="spin" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10" fill="none" stroke="#e3dccb" stroke-width="3"/><path d="M13 3a10 10 0 0 1 10 10" fill="none" stroke="#1f2ac8" stroke-width="3" stroke-linecap="round"/></svg>
+              <svg class="chk" viewBox="0 0 28 28"><circle class="f" cx="15" cy="15" r="12"/><circle class="o" cx="13" cy="13" r="12"/><path d="M8 13.5l3.6 3.6 6.8-7.6"/></svg>
+              <svg class="alert" viewBox="0 0 26 26"><circle cx="13" cy="13" r="11" fill="none" stroke="#b3261e" stroke-width="1.6"/><path d="M13 7.5v6.5M13 17.6v.4" stroke="#b3261e" stroke-width="2" stroke-linecap="round"/></svg>
             </div>
             <div><div class="title"></div><div class="sub"></div></div>
             <button class="x" aria-label="Close">\u00d7</button>
@@ -162,8 +167,8 @@
         ov.style.cssText = 'all:initial;position:fixed;inset:0;z-index:2147483646;pointer-events:none;overflow:hidden';
         const root = ov.attachShadow({ mode: 'closed' });
         let html = `<style>
-          .line{position:absolute;left:0;right:0;top:0;height:3px;background:#ffc233;box-shadow:0 0 18px 6px rgba(255,194,51,.55);animation:sweep ${DUR}ms cubic-bezier(.45,0,.55,1) both}
-          .b{position:absolute;box-sizing:border-box;border:1.5px dashed #2f3bff;background:rgba(47,59,255,.05);opacity:0;animation:wire 1000ms ease both}
+          .line{position:absolute;left:0;right:0;top:0;height:5px;background:#ffb21a;box-shadow:0 3px 0 #1f2ac8;animation:sweep ${DUR}ms cubic-bezier(.45,0,.55,1) both}
+          .b{position:absolute;box-sizing:border-box;border:1.5px dashed #1f2ac8;background:rgba(255,178,26,.18);opacity:0;animation:wire 1000ms ease both}
           @keyframes sweep{0%{transform:translateY(-6px);opacity:1}92%{opacity:1}100%{transform:translateY(${H}px);opacity:0}}
           @keyframes wire{0%{opacity:0}10%{opacity:1}72%{opacity:1}100%{opacity:0}}
         </style><div class="line"></div>`;
@@ -214,9 +219,9 @@
       host.style.cssText = 'all:initial;position:fixed;inset:0;z-index:2147483647;pointer-events:none';
       const root = host.attachShadow({ mode: 'closed' });
       root.innerHTML = `<style>
-        .hl{position:fixed;display:none;box-sizing:border-box;border:2px solid #2f3bff;background:rgba(47,59,255,.12);border-radius:2px}
-        .tip{position:fixed;left:50%;top:12px;transform:translateX(-50%);font:12.5px/1.4 system-ui,sans-serif;background:#15171c;color:#fff;padding:7px 12px;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.25);white-space:nowrap}
-        .tip b{color:#aab1ff;font-weight:600}
+        .hl{position:fixed;display:none;box-sizing:border-box;border:2px solid #1f2ac8;background:rgba(255,178,26,.22);box-shadow:3px 3px 0 #ffb21a;border-radius:2px}
+        .tip{position:fixed;left:50%;top:12px;transform:translateX(-50%);font:600 12.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;background:#1f2ac8;color:#f4efe3;padding:7px 14px;border-radius:999px;box-shadow:3px 3px 0 #ffb21a;white-space:nowrap}
+        .tip b{color:#ffb21a;font-weight:700}
       </style><div class="hl"></div><div class="tip">Click an element to capture \u00b7 <b>\u2191</b> parent \u00b7 <b>\u2193</b> child \u00b7 <b>Esc</b> cancel</div>`;
       const hl = root.querySelector('.hl'), tip = root.querySelector('.tip');
       const cur = document.createElement('style');

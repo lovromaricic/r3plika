@@ -110,7 +110,7 @@ Captured pages are someone else's design and code. Use captures for reference, l
 
 ## Motion
 
-The popup and the on-page card are lightly animated: staggered entrance, title decode, slow artwork drift, title flicker and glitch, button shine and lift, a springy Options panel, a popup fade on capture, and a scan sweep that outlines the captured layers on the page.
+The popup and the on-page card are lightly animated: a staggered entrance, buttons that lift off their printed "plate" on hover and press flat on click, a springy Options panel, a popup fade on capture, and a scan sweep that outlines the captured layers on the page.
 
 - Everything is transform / opacity only and respects the system "reduce motion" setting.
 - To change the overall pace, edit `--s` at the top of the `<style>` block in `popup/popup.html` (1 = as designed, 0.5 = twice as fast).
@@ -134,4 +134,4 @@ The repository folder is the extension. After editing, click the reload icon on 
 The **code** is released under the [MIT License](LICENSE), © 2026 Lovro. The MIT license covers the code only.
 
 - **Artwork:** `popup/bg.webp` and the icons in `icons/` were generated with Google Gemini. AI-generated images may not be eligible for copyright, and no copyright is claimed for them.
-- **Font:** the Roboto font embedded in `popup/popup.html` is licensed under the SIL Open Font License 1.1. See [`popup/LICENSE-Roboto.txt`](popup/LICENSE-Roboto.txt).
+- **Fonts:** Bricolage Grotesque and DM Mono are embedded in `popup/popup.html` and licensed under the SIL Open Font License 1.1. See [`popup/LICENSE-BricolageGrotesque.txt`](popup/LICENSE-BricolageGrotesque.txt) and [`popup/LICENSE-DMMono.txt`](popup/LICENSE-DMMono.txt).

@@ -9,20 +9,6 @@ const $ = (id) => document.getElementById(id);
 const status = $('status');
 const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// R3PLIKA scrambles into place
-function decodeTitle() {
-  const el = $('title'), final = 'R3PLIKA';
-  if (REDUCED) return;
-  const pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#@%&01', dur = 720, t0 = performance.now();
-  (function frame(now) {
-    const p = Math.min(1, (now - t0) / dur);
-    let html = '';
-    for (let i = 0; i < final.length; i++) html += p >= 0.12 + i * 0.11 ? final[i] : '<span class="sc">' + pool[Math.floor(Math.random() * pool.length)] + '</span>';
-    el.innerHTML = html;
-    if (p < 1) requestAnimationFrame(frame); else el.textContent = final;
-  })(t0);
-}
-
 function setStatus(text, isErr) {
   status.textContent = text || '';
   status.className = isErr ? 'err' : '';
@@ -89,7 +75,6 @@ function loadArtwork() {
 requestAnimationFrame(() => setTimeout(loadArtwork, 0));
 
 (function init() {
-  decodeTitle();
   // wire everything up first so the popup is usable instantly, then fill in saved options
   writeForm(DEFAULTS);
   document.querySelectorAll('select, input').forEach((el) => el.addEventListener('change', save));

@@ -25,5 +25,6 @@ SOFTWARE.
 This license covers the source code only. It does not cover:
 - the artwork in popup/bg.webp and icons/ (AI-generated with Google Gemini; no
   copyright is claimed, see README.md), or
-- the Roboto font embedded in popup/popup.html, which is licensed under the
-  SIL Open Font License 1.1 (see popup/LICENSE-Roboto.txt).
+- the Bricolage Grotesque and DM Mono fonts embedded in popup/popup.html,
+  which are licensed under the SIL Open Font License 1.1 (see
+  popup/LICENSE-BricolageGrotesque.txt and popup/LICENSE-DMMono.txt).
