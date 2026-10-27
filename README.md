@@ -6,13 +6,7 @@ No server, no account, no analytics, no Figma plugin. Everything happens inside 
 
 ## Screenshots
 
-<table align="center">
-  <tr>
-    <td valign="top"><img src="docs/popup.png" width="270" alt="The R3PLIKA popup with its three capture buttons"></td>
-    <td valign="top"><img src="docs/popup-options.png" width="270" alt="The popup with the Options panel open"></td>
-    <td valign="top"><img src="docs/result-card.png" width="270" alt="The on-page card after a capture: copied, paste into Figma"></td>
-  </tr>
-</table>
+![R3PLIKA: click, scan, paste. The popup with its three capture buttons and the "Copied, paste into Figma" card](docs/hero.png)
 
 ## Install
 
