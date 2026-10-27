@@ -18,12 +18,19 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--paper)}
+/* Only the options panel scrolls. Chrome adds its own window scrollbar (and widens the popup) whenever the
+   content measures taller than 600px, so clip whatever the open/close slide moves past the edges. */
+html,body{overflow:hidden}
 body{width:344px;min-width:344px;max-height:600px;display:flex;flex-direction:column;color:var(--ink);font:500 13px/1.45 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
 
 /* ---- hero: artwork printed on paper + title (never scrolls) ---- */
-.hero{position:relative;flex:none;height:196px;overflow:hidden;isolation:isolate;background:var(--hero);border-bottom:1.5px solid var(--ink)}
-body.open .hero{height:140px}
-.paper,.bg{position:absolute;inset:0;opacity:0;transition:opacity calc(.6s*var(--s)) ease}
+.hero{position:relative;flex:none;height:196px;overflow:hidden;isolation:isolate;background:var(--hero);border-bottom:1.5px solid var(--ink);transition:transform calc(.3s*var(--s)) var(--ease)}
+/* With Options open the band looks 56px shorter: hero, buttons and panel slide up together while the
+   artwork slides down inside the hero, so the picture stays put. Transform only, so the window never
+   resizes mid-animation. */
+body.open .hero,body.open .main{transform:translateY(-56px)}
+body.open .paper,body.open .bg{transform:translateY(56px)}
+.paper,.bg{position:absolute;inset:0;opacity:0;transition:opacity calc(.6s*var(--s)) ease,transform calc(.3s*var(--s)) var(--ease)}
 .paper{background:var(--paper)}
 .bg{background:0 -24px / 344px auto no-repeat;mix-blend-mode:multiply;filter:saturate(1.15) brightness(1.25) contrast(1.2)}
 .bg.on,.hero:has(.bg.on) .paper{opacity:1}
@@ -32,7 +39,7 @@ body.open .hero{height:140px}
 h1{margin:6px 0 0;font-size:50px;line-height:.9;font-weight:800;letter-spacing:-.02em;color:var(--paper)}
 
 /* ---- tagline, actions, status, options toggle ---- */
-.main{flex:none;padding:16px 20px 6px}
+.main{flex:none;padding:16px 20px 6px;transition:transform calc(.3s*var(--s)) var(--ease)}
 .tag{margin:0 0 14px;font-size:13px;font-weight:500;line-height:1.35}
 .actions{display:grid;gap:9px}
 /* the blue plate stays put; only the button face moves (transform only) */
@@ -61,8 +68,13 @@ h1{margin:6px 0 0;font-size:50px;line-height:.9;font-weight:800;letter-spacing:-
 .toggle[aria-expanded="true"] .chev{transform:translateY(4px) rotate(-135deg)}
 
 /* ---- options panel: the only part that scrolls (popup max height is 600px) ---- */
-.panel-wrap{flex:0 1 auto;min-height:0;display:grid;grid-template-rows:0fr;transition:grid-template-rows calc(.3s*var(--s)) cubic-bezier(.2,.9,.25,1.06)}
-body.open .panel-wrap{grid-template-rows:1fr}
+/* Chrome resizes the popup window to fit the body, and a window that resizes on every animation frame
+   stutters. So the body jumps to its final height in one step and the panel animates inside it. */
+body.open{height:600px}
+.panel-wrap{flex:0 1 auto;min-height:0;display:grid;grid-template-rows:0fr;transition:grid-template-rows calc(.3s*var(--s)) cubic-bezier(.2,.9,.25,1.06),transform calc(.3s*var(--s)) var(--ease)}
+/* slides up with the rest; the negative margin gives it the 56px the slide frees at the bottom */
+body.open .panel-wrap{flex:1 1 auto;grid-template-rows:1fr;margin-bottom:-56px;transform:translateY(-56px)}
+body:not(.open) .panel-wrap{transition:none}
 .panel-inner{min-height:0;overflow:hidden;display:flex;flex-direction:column}
 body:not(.open) .panel-inner{visibility:hidden;transition:visibility 0s calc(.35s*var(--s))}
 .panel{min-height:0;max-height:250px;overflow-y:auto;padding:12px 20px 16px;background:var(--panel);border-top:1.5px solid var(--ink)}
